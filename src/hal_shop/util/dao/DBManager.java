@@ -51,7 +51,7 @@ public class DBManager {
 		try {
 			StringBuilder url = new StringBuilder();
 			// jdbc:spssoem:mysql://<host>:<port>;DatabaseName=<database>
-            Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 			url.append("jdbc:mysql://");
 			url.append(this.server).append(":");
 			url.append(this.port).append("/");
@@ -68,21 +68,51 @@ public class DBManager {
 		}
 	}
 
-	public void db(String table) {
+	public DBManager db(String table) {
 		this.query = new StringBuilder();
 		this.query.append("SELECT * FROM ").append(table);
 		this.where = false;
+		return this;
 	}
 
-	public void select(String[] attributes) {
+	public void insert(String table) {
+		this.query = new StringBuilder();
+		this.query.append("INSERT INTO ").append(table).append("()").append(" VALUES ");
+	}
+
+	public void update(String table) {
+		this.query = new StringBuilder();
+		this.query.append("UPDATE ").append(table).append(" SET ");
+		this.where = false;
+	}
+
+	public void delete(String table) {
+		this.query = new StringBuilder();
+		this.query.append("DELETE ").append(table);
+		this.where = false;
+	}
+	
+	public int query(String query) {
+		int result = -1;
+		try {
+			result = this.st.executeUpdate(query);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public DBManager select(String[] attributes) {
 		String result = String.join(", ", attributes);
 		this.query.replace(7, 7, result);
+		return this;
 	}
 
-	public void where(String col, String key) {
+	public DBManager where(String col, String key) {
 		String opperand = this.where ? " AND " : " WHERE ";
 		this.query.append(opperand).append(col).append(" = ").append(" '").append(key).append("' ");
 		this.where = true;
+		return this;
 	}
 
 	/**
@@ -168,12 +198,13 @@ public class DBManager {
 		return null;
 	}
 
-	public <ONE, MANY> List<MANY> hasMany(String key, ResultSetMapping<ONE> one, ResultSetMapping<MANY> many, String tableKey) {
+	public <ONE, MANY> List<MANY> hasMany(String key, ResultSetMapping<ONE> one, ResultSetMapping<MANY> many,
+			String tableKey) {
 		this.db(many.getTable());
 		if (tableKey != null) {
 			this.where(tableKey, key);
-		}else {
-			this.where(one.primaryKey, key);			
+		} else {
+			this.where(one.primaryKey, key);
 		}
 		try {
 			List<MANY> table = new ArrayList<MANY>();
@@ -194,9 +225,11 @@ public class DBManager {
 	public void close() {
 		try {
 			this.con.close();
-		} catch (SQLException e) {}
+		} catch (SQLException e) {
+		}
 		try {
 			this.st.close();
-		} catch (SQLException e) {}
+		} catch (SQLException e) {
+		}
 	}
 }
