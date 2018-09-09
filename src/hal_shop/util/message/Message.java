@@ -1,17 +1,17 @@
-package hal_shop.util.errors;
+package hal_shop.util.message;
 
-public class Errors {
+public class Message {
 
 	private String code = "";
 	private String message = "";
 
-	public Errors Exception404() {
+	public Message exception404() {
 		this.code = "AuthError";
 		this.message = "ログインを行なってください。";
 		return this;
 	}
 	
-	public Errors CreateException(String code, String message) {
+	public Message createMessage(String code, String message) {
 		this.code = code;
 		this.message = message;
 		return this;

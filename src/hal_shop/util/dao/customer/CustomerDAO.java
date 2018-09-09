@@ -20,8 +20,10 @@ public class CustomerDAO {
 		return dto;
 	}
 	
-	public static boolean Login(String id, String password) {
+	public static CustomerDTO Login(String id, String password) {
 		DBManager dbm = new DBManager();
-		return dbm.db("customer").where("customer_id", id).where("customer_pass", password).isExists();
+		CustomerDTO dto = dbm.db("customer").where("customer_id", id).where("customer_pass", password).first(new CustomerMapping());
+		dbm.close();
+		return dto;
 	}
 }

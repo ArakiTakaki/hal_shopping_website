@@ -27,7 +27,7 @@ public class Sale extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		@SuppressWarnings("unchecked")
 		List<CartBeans> cart = (ArrayList<CartBeans>)session.getAttribute("CART");
