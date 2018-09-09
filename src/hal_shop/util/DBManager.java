@@ -22,6 +22,7 @@ public class DBManager {
 	private Connection con;
 	private StringBuilder query;
 	private boolean where;
+	private Statement st;
 	
 	public DBManager() {}
 	
@@ -85,7 +86,7 @@ public class DBManager {
 	public ArrayList<ArrayList<String>> toArray(){
 		try {
 			ArrayList<ArrayList<String>> tbl = new ArrayList<ArrayList<String>>();
-			Statement st = this.con.createStatement();
+			st = this.con.createStatement();
 			ResultSet rs = st.executeQuery(this.query.toString());
 			ResultSetMetaData rsmd = rs.getMetaData();
 			while(rs.next()) {
@@ -112,13 +113,12 @@ public class DBManager {
 		try {
 			// (2) SQLの実行
 			List<T> list = new ArrayList<T>();
-			Statement st = this.con.createStatement();
+			st = this.con.createStatement();
 			ResultSet rs = st.executeQuery(this.query.toString());
 			while(rs.next()) {
 				T dto = mapping.setMapping(rs);
 				list.add(dto);
 			}
-			st.close();
 			return list;
 		} catch (SQLException e){
 			System.out.println(e);
@@ -130,7 +130,7 @@ public class DBManager {
 		this.db(mapping.getTable());
 		this.where(mapping.primaryKey,key);
 		try {
-			Statement st = this.con.createStatement();
+			st = this.con.createStatement();
 			ResultSet rs = st.executeQuery(this.query.toString());
 			if(!rs.next()) return null;
 			T dto = mapping.setMapping(rs);
@@ -141,9 +141,28 @@ public class DBManager {
 		return null;
 	}
 	
+	public <T> T mltipleFind(String[] keys, ResultSetMapping<T> mapping) {
+		this.db(mapping.getTable());
+		for(int i = 0; i < keys.length; i++ ) {
+			this.where(mapping.getMultipleKey()[i], keys[i]);
+		}
+		try {
+			st = this.con.createStatement();
+			ResultSet rs = st.executeQuery(this.query.toString());
+			T dto = mapping.setMapping(rs);
+			return dto;
+		}catch(SQLException e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
 	public void close() {
 		try{
 			this.con.close();
+		}catch(SQLException e){}
+		try {
+			this.st.close();
 		}catch(SQLException e){}
 	}
 }
