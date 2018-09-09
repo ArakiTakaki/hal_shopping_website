@@ -157,6 +157,24 @@ public class DBManager {
 		return null;
 	}
 	
+	public <ONE, MANY> List<MANY> hasMany(String key, ResultSetMapping<ONE> one, ResultSetMapping<MANY> many ) {
+		this.db(many.getTable());
+		this.where(one.primaryKey, key);
+		try {
+			st = this.con.createStatement();
+			List<MANY> table = new ArrayList<MANY>();
+			ResultSet rs = st.executeQuery(this.query.toString());
+			while(rs.next()) {
+				MANY dto = many.setMapping(rs);
+				table.add(dto);
+			}
+			return table;
+		}catch(SQLException e) {
+			System.out.println(e);
+		}
+		return null;
+	}
+	
 	public void close() {
 		try{
 			this.con.close();
