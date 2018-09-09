@@ -66,6 +66,11 @@ public class DBManager {
 		this.query.append("SELECT * FROM ").append(table);
 		this.where = false;
 	}
+	
+	public void select(String[] attributes) {
+		String result = String.join(", ", attributes);
+		this.query.replace(7, 7, result);
+	}
 
 	public void where(String col ,String key) {
 		String opperand = this.where ? " AND " : " WHERE ";
