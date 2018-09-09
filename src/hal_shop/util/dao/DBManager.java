@@ -177,6 +177,19 @@ public class DBManager {
 		}
 		return false;
 	}
+	
+	public <T> T first(ResultSetMapping<T> mapping) {
+		try {
+			ResultSet rs = this.st.executeQuery(this.query.toString());
+			if(!rs.next())
+				return null;
+			T dto = mapping.setMapping(rs);
+			return dto;
+		} catch (SQLException e) {
+			System.out.println(e);
+		}
+		return null;
+	}
 
 	public <T> T find(String key, ResultSetMapping<T> mapping) {
 		this.db(mapping.getTable());
