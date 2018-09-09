@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import hal_shop.util.dao.ResultSetMapping;
+import hal_shop.util.dao.product.image.ProductImageDAO;
 
 public class ProductMapping extends ResultSetMapping<ProductDTO> {
 
@@ -20,6 +21,7 @@ public class ProductMapping extends ResultSetMapping<ProductDTO> {
 		pd.setPrice(rs.getInt("product_price"));
 		pd.setArea(rs.getString("product_area"));
 		pd.setDescription(rs.getString("product_Description"));
+		pd.setImages(ProductDAO.getImages(pd.getNo()));
 		return pd;
 	}
 

@@ -1,5 +1,9 @@
 package hal_shop.util.dao.product;
 
+import java.util.List;
+
+import hal_shop.util.dao.product.image.ProductImageDTO;
+
 /**
  * @author arakitakaki
  *
@@ -8,6 +12,15 @@ public class ProductDTO {
 	private String no, name, type;
 	private int categoryID, price;
 	private String area, description;
+	private List<ProductImageDTO> images;
+
+	public List<ProductImageDTO> getImages() {
+		return images;
+	}
+
+	public void setImages(List<ProductImageDTO> images) {
+		this.images = images;
+	}
 
 	public String getNo() {
 		return no;
