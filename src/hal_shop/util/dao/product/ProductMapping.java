@@ -8,7 +8,7 @@ import hal_shop.util.ResultSetMapping;
 public class ProductMapping extends ResultSetMapping<ProductDTO> {
 
 	protected String primaryKey = "product_no";
-	protected String table = "customer";
+	protected String table = "product";
 	
 	@Override
 	public ProductDTO setMapping(ResultSet rs)throws SQLException{
