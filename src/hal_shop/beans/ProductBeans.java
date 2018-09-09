@@ -1,7 +1,7 @@
-package hal_shop.util.beans.product;
+package hal_shop.beans;
 
 public class ProductBeans {	
 	private String no, name, type;
 	private int categoryID, price;
-	private String img, area, description;
+	private String area, description;
 }

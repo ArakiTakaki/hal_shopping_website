@@ -1,4 +1,4 @@
-package hal_shop.util.beans.product;
+package hal_shop.util.dao.product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ public class ProductMapping extends ResultSetMapping<ProductDTO> {
 		pd.setType(rs.getString("product_type"));
 		pd.setCategoryID(rs.getInt("category_id"));
 		pd.setPrice(rs.getInt("product_price"));
-		pd.setImg(rs.getString("product_img"));
 		pd.setArea(rs.getString("product_area"));
 		pd.setDescription(rs.getString("product_Description"));
 		return pd;

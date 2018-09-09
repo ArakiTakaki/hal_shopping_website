@@ -1,4 +1,4 @@
-package hal_shop.util.beans.customer;
+package hal_shop.util.dao.customer;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,7 @@ import hal_shop.util.ResultSetMapping;
 public class CustomerMapping extends ResultSetMapping<CustomerDTO> {
 
 	protected String primaryKey = "customer_no";
-	protected String table = "product";
+	protected String table = "customer";
 	
 	@Override
 	public CustomerDTO setMapping(ResultSet rs)throws SQLException{

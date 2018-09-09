@@ -1,4 +1,4 @@
-package hal_shop.util.beans.customer;
+package hal_shop.util.dao.customer;
 
 import java.util.List;
 

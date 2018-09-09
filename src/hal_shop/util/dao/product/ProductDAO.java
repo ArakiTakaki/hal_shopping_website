@@ -1,4 +1,4 @@
-package hal_shop.util.beans.product;
+package hal_shop.util.dao.product;
 
 import java.util.List;
 

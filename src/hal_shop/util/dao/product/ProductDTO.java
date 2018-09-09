@@ -1,4 +1,4 @@
-package hal_shop.util.beans.product;
+package hal_shop.util.dao.product;
 
 /**
  * @author arakitakaki
@@ -7,7 +7,7 @@ package hal_shop.util.beans.product;
 public class ProductDTO {
 	private String no, name, type;
 	private int categoryID, price;
-	private String img, area, description;
+	private String area, description;
 
 	public String getNo() {
 		return no;
@@ -47,14 +47,6 @@ public class ProductDTO {
 
 	public void setPrice(int price) {
 		this.price = price;
-	}
-
-	public String getImg() {
-		return img;
-	}
-
-	public void setImg(String img) {
-		this.img = img;
 	}
 
 	public String getArea() {

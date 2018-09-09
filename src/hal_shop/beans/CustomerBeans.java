@@ -1,4 +1,4 @@
-package hal_shop.util.beans.customer;
+package hal_shop.beans;
 
 public class CustomerBeans {	
 	private String no, name, addres;
