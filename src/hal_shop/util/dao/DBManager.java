@@ -165,6 +165,18 @@ public class DBManager {
 		}
 		return null;
 	}
+	
+	public boolean isExists(){
+		try {
+			ResultSet rs = this.st.executeQuery(this.query.toString());
+			if(rs.next()) {
+				return true;
+			}
+		} catch(SQLException e){
+			System.out.println(e);
+		}
+		return false;
+	}
 
 	public <T> T find(String key, ResultSetMapping<T> mapping) {
 		this.db(mapping.getTable());

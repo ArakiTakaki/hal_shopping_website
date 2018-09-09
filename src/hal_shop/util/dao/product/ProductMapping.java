@@ -4,7 +4,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import hal_shop.util.dao.ResultSetMapping;
-import hal_shop.util.dao.product.image.ProductImageDAO;
 
 public class ProductMapping extends ResultSetMapping<ProductDTO> {
 	

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.JSONArray;
+import org.json.JSONObject;
 
 import hal_shop.beans.CartBeans;
 
@@ -32,7 +32,7 @@ public class Sale extends HttpServlet {
 		@SuppressWarnings("unchecked")
 		List<CartBeans> cart = (ArrayList<CartBeans>)session.getAttribute("CART");
 
-        JSONArray arr = new JSONArray(cart);
+		JSONObject arr = new JSONObject(cart);
 		PrintWriter out = response.getWriter();
 		out.println(arr);
 	}
@@ -44,15 +44,12 @@ public class Sale extends HttpServlet {
 		String productNoStr = request.getParameter("product_no");
 		int countInt = Integer.parseInt(request.getParameter("quantity"));
 
-		@SuppressWarnings("unchecked")
-		List<CartBeans> cart = (ArrayList<CartBeans>)session.getAttribute("CART");
+		CartBeans cart = (CartBeans)session.getAttribute("CART");
 
 		CartBeans cb = new CartBeans();
-		cb.setProductNO(productNoStr);
-		cb.setCount(countInt);
-		cart.add(cb);
+		cb.setItem(productNoStr, countInt);
 		
-        JSONArray arr = new JSONArray(cart);
+		JSONObject arr = new JSONObject(cart);
 		PrintWriter out = response.getWriter();
 		out.println(arr);
 	}

@@ -1,19 +1,20 @@
 package hal_shop.beans;
 
+import java.util.Map;
+
 public class CartBeans {
-	String productNO;
-	int count;
+	private Map<String,Integer> map;
+
+	public Map<String, Integer> getMap() {
+		return map;
+	}
 	
-	public String getProductNO() {
-		return productNO;
+	public void setItem(String key, int value) {
+		map.put(key, value);
 	}
-	public void setProductNO(String productNO) {
-		this.productNO = productNO;
+	
+	public void deleteItem(String key) {
+		map.remove(key);
 	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
+
 }

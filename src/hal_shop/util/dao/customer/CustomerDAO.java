@@ -19,4 +19,9 @@ public class CustomerDAO {
 		dbm.close();
 		return dto;
 	}
+	
+	public static boolean Login(String id, String password) {
+		DBManager dbm = new DBManager();
+		return dbm.db("customer").where("customer_id", id).where("customer_pass", password).isExists();
+	}
 }
