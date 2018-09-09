@@ -4,9 +4,9 @@ package hal_shop.util.beans.product;
  * @author arakitakaki
  *
  */
-public class DTO {
+public class ProductDTO {
 	private String no, name, type;
-	private int id, price;
+	private int categoryID, price;
 	private String img, area, description;
 
 	public String getNo() {
@@ -33,12 +33,12 @@ public class DTO {
 		this.type = type;
 	}
 
-	public int getId() {
-		return id;
+	public int getCategoryID() {
+		return categoryID;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setCategoryID(int id) {
+		this.categoryID = id;
 	}
 
 	public int getPrice() {

@@ -5,17 +5,18 @@ import java.sql.SQLException;
 
 import hal_shop.util.ResultSetMapping;
 
-public class Mapping extends ResultSetMapping<DTO> {
+public class ProductMapping extends ResultSetMapping<ProductDTO> {
 
 	protected String primaryKey = "product_no";
+	protected String table = "customer";
 	
 	@Override
-	public DTO setMapping(ResultSet rs)throws SQLException{
-		DTO pd = new DTO();
+	public ProductDTO setMapping(ResultSet rs)throws SQLException{
+		ProductDTO pd = new ProductDTO();
 		pd.setNo(rs.getString("product_no"));
 		pd.setName(rs.getString("product_name"));
 		pd.setType(rs.getString("product_type"));
-		pd.setId(rs.getInt("category_id"));
+		pd.setCategoryID(rs.getInt("category_id"));
 		pd.setPrice(rs.getInt("product_price"));
 		pd.setImg(rs.getString("product_img"));
 		pd.setArea(rs.getString("product_area"));

@@ -4,17 +4,17 @@ import java.util.List;
 
 import hal_shop.util.DBManager;
 
-public class DAO {
-	public List<DTO> getall() {
+public class ProductDAO {
+	public List<ProductDTO> getall() {
 		DBManager dbm = new DBManager();
-		List<DTO> dto = dbm.get(new Mapping());
+		List<ProductDTO> dto = dbm.get(new ProductMapping());
 		dbm.close();
 		return dto;
 	}
 	
-	public DTO find(String key) {
+	public ProductDTO find(String key) {
 		DBManager dbm = new DBManager();
-		DTO dto = dbm.find(key, new Mapping());
+		ProductDTO dto = dbm.find(key, new ProductMapping());
 		dbm.close();
 		return dto;
 	}
