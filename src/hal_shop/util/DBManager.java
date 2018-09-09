@@ -67,9 +67,9 @@ public class DBManager {
 		this.where = false;
 	}
 
-	public void where(String col ,String conditions) {
+	public void where(String col ,String key) {
 		String opperand = this.where ? " AND " : " WHERE ";
-		this.query.append(opperand).append(col).append(" = ").append(conditions);
+		this.query.append(opperand).append(col).append(" = ").append(" '").append(key).append("' ");
 		this.where = true;
 	}
 	
@@ -103,6 +103,7 @@ public class DBManager {
 	 * @return
 	 */
 	public <T> List<T> get(ResultSetMapping<T> mapping) {
+		this.db(mapping.getTable());
 		try {
 			// (2) SQLの実行
 			List<T> list = new ArrayList<T>();
@@ -121,6 +122,8 @@ public class DBManager {
 	}
 	
 	public <T> T find(String key, ResultSetMapping<T> mapping) {
+		this.db(mapping.getTable());
+		this.where(mapping.primaryKey,key);
 		try {
 			Statement st = this.con.createStatement();
 			ResultSet rs = st.executeQuery(this.query.toString());
