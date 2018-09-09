@@ -43,7 +43,7 @@ public class Fillter implements Filter {
 		String[] URI = req.getRequestURI().split("/", -1);
 		if(!Objects.equals(URI[2], "API")) {
 			System.out.println("test");
-			request.getRequestDispatcher("index.html").forward(request, response);
+			request.getRequestDispatcher("asset/index.html").forward(request, response);
 			return;
 		}
 		chain.doFilter(request, response);
