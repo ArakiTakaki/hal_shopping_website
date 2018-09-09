@@ -27,6 +27,7 @@ public class Auth extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		doPost(request,response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,6 +55,13 @@ public class Auth extends HttpServlet {
 
 	private String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
+		if (session == null) {
+			return new Message().createMessage("AuthError", "ログインすらしておりません").toJSON();
+		}
+		if (session.getAttribute("AUTH") == null) {
+			return new Message().createMessage("AuthError", "ログインすらしておりません").toJSON();
+		}
+		session.removeAttribute("AUTH");
 		session.invalidate();
 		return new Message().createMessage("auth", "ログアウトしました").toJSON();
 	}
@@ -61,16 +69,20 @@ public class Auth extends HttpServlet {
 	private String login(HttpServletRequest request) {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-
 		CustomerDTO cdo = CustomerDAO.Login(id, password);
+		HttpSession session = request.getSession(true);
+
+		if (session.getAttribute("AUTH") != null) {
+			return new Message().createMessage("AuthError", "既にログイン中です。").toJSON();
+		}
 		if (cdo == null) {
-			return new Message().exception404().toJSON();
+			return new Message().createMessage("AuthError", "ID、パスワードが未入力です").toJSON();
 		}
 		JSONObject arr = new JSONObject(cdo);
 		AuthBeans ab = new AuthBeans();
 		ab.setName(cdo.getName());
 		ab.setNo(cdo.getNo());
-		HttpSession session = request.getSession(true);
+		session = request.getSession(true);
 		session.setAttribute("AUTH", ab);
 		return arr.toString();
 	}

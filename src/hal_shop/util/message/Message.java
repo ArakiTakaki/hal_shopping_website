@@ -22,6 +22,10 @@ public class Message {
 		return "Errors [code=" + code + ", message=" + message + "]";
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String toJSON() {
 		return "{" + "\"" + "code" + "\":" + "\"" + this.code + "\"," + "\"" + "message" + "\":" + "\"" + this.message
 				+ "\"" + "}";

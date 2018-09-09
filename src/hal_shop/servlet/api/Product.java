@@ -31,32 +31,41 @@ public class Product extends HttpServlet {
 
 		String action = request.getParameter("action");
 		String params = request.getParameter("params");
-
-        JSONArray arr = new JSONArray(getProduct(action,params));
+		
+		String data = getProduct(action,params);
+		
 		PrintWriter out = response.getWriter();
-		out.println(arr);
+		out.println(data);
 	}
 	
-	private List<ProductDTO> getProduct(String action,String params) {
+	private String getProduct(String action,String params) {
+		
 		if(action == null || params == null) {
-			return ProductDAO.getall();
+			return new JSONArray(ProductDAO.getall()).toString();
 		}
 
 		switch(action) {
 		case "category":
-			return CategoryDAO.getProducts(params);
+			return new JSONArray(CategoryDAO.getProducts(params)).toString();
 		case "find":
 			List<ProductDTO> pdo = new ArrayList<ProductDTO>();
 			pdo.add(ProductDAO.find(params));
-			return pdo;
+			return new JSONArray(pdo).toString();
 		default:
-			return ProductDAO.getall();
+			return new JSONArray(ProductDAO.getall()).toString();
 		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+	}
+	
+	protected void doDelete(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+	}
+	
+	protected void doPut(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 	}
 
 }
