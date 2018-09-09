@@ -11,176 +11,192 @@ import java.sql.Connection;
 
 /**
  * closeを行う必要のある、SQL接続クラス。
+ * 
  * @author arakitakaki
  *
  */
 public class DBManager {
-	
+
 	private String dbname = "jv_test";
 	private String server = "localhost";
 	private String port = "3306";
-	private Connection con;
+	private Connection con = null;
+	private Statement st = null;
 	private StringBuilder query;
 	private boolean where;
-	private Statement st;
-	
-	public DBManager() {}
-	
+
+	public DBManager() {
+		this.connect();
+	}
+
 	public DBManager(String dbname) {
 		this.dbname = dbname;
-		connect();
+		this.connect();
 	}
-	public DBManager(String dbname, String server){
+
+	public DBManager(String dbname, String server) {
 		this.dbname = dbname;
 		this.server = server;
-		connect();
+		this.connect();
 	}
-	public DBManager(String dbname, String server, String port){
+
+	public DBManager(String dbname, String server, String port) {
 		this.dbname = dbname;
 		this.server = server;
 		this.port = port;
 		connect();
 	}
 
-	
 	public void connect() {
 		try {
 			StringBuilder url = new StringBuilder();
-			Class.forName("org.hsqldb.jdbcDriver");
-			url.append("jdbc:hsqldb:hsql://");
+			// jdbc:spssoem:mysql://<host>:<port>;DatabaseName=<database>
+            Class.forName("com.mysql.jdbc.Driver");
+			url.append("jdbc:mysql://");
 			url.append(this.server).append(":");
 			url.append(this.port).append("/");
 			url.append(this.dbname);
-			url.append("?useUnicode=true&characterEncoding=utf8");	//設定
-			con = DriverManager.getConnection(url.toString(), "root", "");
+			url.append("?useUnicode=true&characterEncoding=utf8"); // 設定
+			System.out.println(url.toString());
+			this.con = DriverManager.getConnection(url.toString(), "root", "");
+			this.st = con.createStatement();
 		} catch (ClassNotFoundException e) {
 			System.out.println(e);
 		} catch (SQLException e) {
 			System.out.println(e);
 		} finally {
-			
 		}
 	}
-	
+
 	public void db(String table) {
 		this.query = new StringBuilder();
 		this.query.append("SELECT * FROM ").append(table);
 		this.where = false;
 	}
-	
+
 	public void select(String[] attributes) {
 		String result = String.join(", ", attributes);
 		this.query.replace(7, 7, result);
 	}
 
-	public void where(String col ,String key) {
+	public void where(String col, String key) {
 		String opperand = this.where ? " AND " : " WHERE ";
 		this.query.append(opperand).append(col).append(" = ").append(" '").append(key).append("' ");
 		this.where = true;
 	}
-	
+
 	/**
 	 * Stringの二次元配列として値を返却する。
+	 * 
 	 * @return table
 	 */
-	public ArrayList<ArrayList<String>> toArray(){
+	public ArrayList<ArrayList<String>> toArray() {
 		try {
 			ArrayList<ArrayList<String>> tbl = new ArrayList<ArrayList<String>>();
-			st = this.con.createStatement();
-			ResultSet rs = st.executeQuery(this.query.toString());
+			ResultSet rs = this.st.executeQuery(this.query.toString());
 			ResultSetMetaData rsmd = rs.getMetaData();
-			while(rs.next()) {
+			while (rs.next()) {
 				ArrayList<String> rec = new ArrayList<String>();
-				for(int i = 1; i < rsmd.getColumnCount(); i++ ) {
+				for (int i = 1; i < rsmd.getColumnCount(); i++) {
 					rec.add(rs.getString(i));
 				}
 				tbl.add(rec);
 			}
 			return tbl;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
+
 	/**
 	 * DTOモデルの通りに値を返却する。
+	 * 
 	 * @param mapping
 	 * @return
 	 */
 	public <T> List<T> get(ResultSetMapping<T> mapping) {
 		this.db(mapping.getTable());
+		System.out.println(mapping.getTable());
+		System.out.println(mapping.getPrimaryKey());
 		try {
 			// (2) SQLの実行
 			List<T> list = new ArrayList<T>();
-			st = this.con.createStatement();
-			ResultSet rs = st.executeQuery(this.query.toString());
-			while(rs.next()) {
+			System.out.println(this.query.toString());
+			ResultSet rs = this.st.executeQuery(this.query.toString());
+			while (rs.next()) {
 				T dto = mapping.setMapping(rs);
 				list.add(dto);
 			}
+			st.close();
 			return list;
-		} catch (SQLException e){
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
+
 	public <T> T find(String key, ResultSetMapping<T> mapping) {
 		this.db(mapping.getTable());
-		this.where(mapping.primaryKey,key);
+		this.where(mapping.primaryKey, key);
 		try {
-			st = this.con.createStatement();
-			ResultSet rs = st.executeQuery(this.query.toString());
-			if(!rs.next()) return null;
+			ResultSet rs = this.st.executeQuery(this.query.toString());
+			if (!rs.next())
+				return null;
 			T dto = mapping.setMapping(rs);
-			return dto;	
-		}catch(SQLException e) {
+			st.close();
+			return dto;
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
+
 	public <T> T mltipleFind(String[] keys, ResultSetMapping<T> mapping) {
 		this.db(mapping.getTable());
-		for(int i = 0; i < keys.length; i++ ) {
+		for (int i = 0; i < keys.length; i++) {
 			this.where(mapping.getMultipleKey()[i], keys[i]);
 		}
 		try {
-			st = this.con.createStatement();
-			ResultSet rs = st.executeQuery(this.query.toString());
+			ResultSet rs = this.st.executeQuery(this.query.toString());
 			T dto = mapping.setMapping(rs);
+			st.close();
 			return dto;
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
-	public <ONE, MANY> List<MANY> hasMany(String key, ResultSetMapping<ONE> one, ResultSetMapping<MANY> many ) {
+
+	public <ONE, MANY> List<MANY> hasMany(String key, ResultSetMapping<ONE> one, ResultSetMapping<MANY> many, String tableKey) {
 		this.db(many.getTable());
-		this.where(one.primaryKey, key);
+		if (tableKey != null) {
+			this.where(tableKey, key);
+		}else {
+			this.where(one.primaryKey, key);			
+		}
 		try {
-			st = this.con.createStatement();
 			List<MANY> table = new ArrayList<MANY>();
-			ResultSet rs = st.executeQuery(this.query.toString());
-			while(rs.next()) {
+			System.out.println(this.query.toString());
+			ResultSet rs = this.st.executeQuery(this.query.toString());
+			while (rs.next()) {
 				MANY dto = many.setMapping(rs);
 				table.add(dto);
 			}
+			st.close();
 			return table;
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			System.out.println(e);
 		}
 		return null;
 	}
-	
+
 	public void close() {
-		try{
+		try {
 			this.con.close();
-		}catch(SQLException e){}
+		} catch (SQLException e) {}
 		try {
 			this.st.close();
-		}catch(SQLException e){}
+		} catch (SQLException e) {}
 	}
 }

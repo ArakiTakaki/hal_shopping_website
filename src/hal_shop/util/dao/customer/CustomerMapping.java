@@ -4,21 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import hal_shop.util.dao.ResultSetMapping;
-//+-----------------+-------------+------+-----+---------+-------+
-//| Field           | Type        | Null | Key | Default | Extra |
-//+-----------------+-------------+------+-----+---------+-------+
-//| customer_no     | char(4)     | NO   | PRI | NULL    |       |
-//| customer_name   | varchar(20) | NO   |     | NULL    |       |
-//| customer_addres | varchar(30) | NO   |     | NULL    |       |
-//| customer_sex    | int(1)      | NO   |     | NULL    |       |
-//| customer_age    | int(11)     | NO   |     | NULL    |       |
-//| customer_id     | varchar(11) | NO   |     | NULL    |       |
-//| customer_pass   | varchar(11) | NO   |     | NULL    |       |
-//+-----------------+-------------+------+-----+---------+-------+
-public class CustomerMapping extends ResultSetMapping<CustomerDTO> {
 
-	protected String primaryKey = "customer_no";
-	protected String table = "customer";
+public class CustomerMapping extends ResultSetMapping<CustomerDTO> {
+	
+	public CustomerMapping() {
+		this.primaryKey = "customer_no";
+		this.table = "customer";
+	}
 	
 	@Override
 	public CustomerDTO setMapping(ResultSet rs)throws SQLException{

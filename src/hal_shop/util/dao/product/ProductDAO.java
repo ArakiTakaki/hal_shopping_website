@@ -24,7 +24,7 @@ public class ProductDAO {
 	
 	public static List<ProductImageDTO> getImages(String productID) {
 		DBManager dbm = new DBManager();
-		List<ProductImageDTO> dto = dbm.hasMany(productID, new ProductMapping(), new ProductImageMapping() );
+		List<ProductImageDTO> dto = dbm.hasMany(productID, new ProductMapping(), new ProductImageMapping(),null );
 		dbm.close();
 		return dto;
 	}

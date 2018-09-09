@@ -10,40 +10,24 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 
 /**
- * Servlet Filter implementation class FIllter
+ * Servlet Filter implementation class APIFillter
  */
-@WebFilter("/*")
-public class FIllter implements Filter {
-	private static final String CHARSET = "utf-8";
-    
+@WebFilter("/API/*")
+public class APIFillter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public FIllter() {
-        // TODO Auto-generated constructor stub
+    public APIFillter() {
     }
 
-	/**
-	 * @see Filter#destroy()
-	 */
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-		request.setCharacterEncoding(CHARSET);
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 		chain.doFilter(request, response);
 	}
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }

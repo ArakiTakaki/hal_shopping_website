@@ -7,9 +7,11 @@ import hal_shop.util.dao.ResultSetMapping;
 import hal_shop.util.dao.product.image.ProductImageDAO;
 
 public class ProductMapping extends ResultSetMapping<ProductDTO> {
-
-	protected String primaryKey = "product_no";
-	protected String table = "product";
+	
+	public ProductMapping() {
+		this.primaryKey = "product_no";
+		this.table = "product";
+	}
 	
 	@Override
 	public ProductDTO setMapping(ResultSet rs)throws SQLException{

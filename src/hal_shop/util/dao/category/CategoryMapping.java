@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import hal_shop.util.dao.ResultSetMapping;
 
 public class CategoryMapping extends ResultSetMapping<CategoryDTO> {
-
-	protected String primaryKey = "id";
-	protected String table = "categories";
+	
+	public CategoryMapping() {
+		this.primaryKey = "id";
+		this.table = "categories";
+	}
 	
 	@Override
 	public CategoryDTO setMapping(ResultSet rs)throws SQLException{

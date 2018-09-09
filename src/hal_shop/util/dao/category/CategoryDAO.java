@@ -24,7 +24,7 @@ public class CategoryDAO {
 	
 	public static List<ProductDTO> getProducts(String categoryKey) {
 		DBManager dbm = new DBManager();
-		List<ProductDTO> dto = dbm.hasMany(categoryKey, new CategoryMapping(), new ProductMapping());
+		List<ProductDTO> dto = dbm.hasMany(categoryKey, new CategoryMapping(), new ProductMapping(),"category_id");
 		dbm.close();
 		return dto;
 	}

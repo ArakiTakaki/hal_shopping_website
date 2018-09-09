@@ -10,15 +10,15 @@ public abstract class ResultSetMapping<T>{
 
 	public abstract T setMapping(ResultSet rs)throws SQLException;
 	public String getPrimaryKey() {
-		return this.primaryKey;
+		return primaryKey;
 	}
 	
 	public String getTable() {
-		return this.table;
+		return table;
 	}
 	
 	public String[] getMultipleKey() {
-		return this.maltipleKey;
+		return maltipleKey;
 	}
 
 }
