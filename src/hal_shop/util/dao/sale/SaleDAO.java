@@ -1,8 +1,8 @@
-package hal_shop.util.dao.sales;
+package hal_shop.util.dao.sale;
 
 import java.util.List;
 
-import hal_shop.util.DBManager;
+import hal_shop.util.dao.DBManager;
 
 public class SaleDAO {
 	public List<SaleDTO> getall() {

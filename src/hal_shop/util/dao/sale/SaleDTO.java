@@ -1,4 +1,4 @@
-package hal_shop.util.dao.sales;
+package hal_shop.util.dao.sale;
 
 /**
  * @author arakitakaki

@@ -2,7 +2,9 @@ package hal_shop.util.dao.product;
 
 import java.util.List;
 
-import hal_shop.util.DBManager;
+import hal_shop.util.dao.DBManager;
+import hal_shop.util.dao.product.image.ProductImageDTO;
+import hal_shop.util.dao.product.image.ProductImageMapping;
 
 public class ProductDAO {
 	public List<ProductDTO> getall() {
@@ -18,4 +20,12 @@ public class ProductDAO {
 		dbm.close();
 		return dto;
 	}
+	
+	public List<ProductImageDTO> getImages(String productID) {
+		DBManager dbm = new DBManager();
+		List<ProductImageDTO> dto = dbm.hasMany(productID, new ProductMapping(), new ProductImageMapping() );
+		dbm.close();
+		return dto;
+	}
+
 }

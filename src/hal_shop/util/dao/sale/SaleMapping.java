@@ -1,9 +1,9 @@
-package hal_shop.util.dao.sales;
+package hal_shop.util.dao.sale;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import hal_shop.util.ResultSetMapping;
+import hal_shop.util.dao.ResultSetMapping;
 
 public class SaleMapping extends ResultSetMapping<SaleDTO> {
 

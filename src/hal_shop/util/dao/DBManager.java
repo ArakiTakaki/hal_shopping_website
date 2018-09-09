@@ -1,4 +1,4 @@
-package hal_shop.util;
+package hal_shop.util.dao;
 
 import java.sql.DriverManager;
 import java.sql.ResultSet;

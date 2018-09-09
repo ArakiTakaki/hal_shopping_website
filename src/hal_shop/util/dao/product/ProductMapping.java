@@ -3,7 +3,7 @@ package hal_shop.util.dao.product;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import hal_shop.util.ResultSetMapping;
+import hal_shop.util.dao.ResultSetMapping;
 
 public class ProductMapping extends ResultSetMapping<ProductDTO> {
 

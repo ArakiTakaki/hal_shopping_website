@@ -1,4 +1,4 @@
-package hal_shop.util;
+package hal_shop.util.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

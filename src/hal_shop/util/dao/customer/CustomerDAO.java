@@ -2,7 +2,7 @@ package hal_shop.util.dao.customer;
 
 import java.util.List;
 
-import hal_shop.util.DBManager;
+import hal_shop.util.dao.DBManager;
 
 public class CustomerDAO {
 	public List<CustomerDTO> getall() {
