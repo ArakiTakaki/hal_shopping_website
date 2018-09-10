@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONObject;
 
 import hal_shop.beans.AuthBeans;
+import hal_shop.util.Contexts;
 import hal_shop.util.dao.customer.CustomerDAO;
 import hal_shop.util.dao.customer.CustomerDTO;
 import hal_shop.util.message.Message;
@@ -36,15 +37,16 @@ public class Auth extends HttpServlet {
 		String action = request.getParameter("action");
 
 		if (action == null) {
+			response.setStatus(Contexts.BAD_REQUEST);
 			out.println(new Message().exception404().toJSON());
 			return;
 		}
 		switch (action) {
 		case "login":
-			out.println(login(request));
+			out.println(login(request,response));
 			break;
 		case "logout":
-			out.println(logout(request));
+			out.println(logout(request,response));
 			break;
 		case "edit":
 			// TODO 会員情報の編集
@@ -53,12 +55,14 @@ public class Auth extends HttpServlet {
 		return;
 	}
 
-	private String logout(HttpServletRequest request) {
+	private String logout(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
+			response.setStatus(Contexts.BAD_REQUEST);
 			return new Message().createMessage("AuthError", "ログインすらしておりません").toJSON();
 		}
 		if (session.getAttribute("AUTH") == null) {
+			response.setStatus(Contexts.BAD_REQUEST);
 			return new Message().createMessage("AuthError", "ログインすらしておりません").toJSON();
 		}
 		session.removeAttribute("AUTH");
@@ -66,18 +70,21 @@ public class Auth extends HttpServlet {
 		return new Message().createMessage("auth", "ログアウトしました").toJSON();
 	}
 
-	private String login(HttpServletRequest request) {
+	private String login(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
 		CustomerDTO cdo = CustomerDAO.Login(id, password);
 		HttpSession session = request.getSession(true);
 
 		if (session.getAttribute("AUTH") != null) {
+			response.setStatus(Contexts.BAD_REQUEST);
 			return new Message().createMessage("AuthError", "既にログイン中です。").toJSON();
 		}
 		if (cdo == null) {
+			response.setStatus(Contexts.BAD_REQUEST);
 			return new Message().createMessage("AuthError", "ID、パスワードが未入力です").toJSON();
 		}
+		
 		JSONObject arr = new JSONObject(cdo);
 		AuthBeans ab = new AuthBeans();
 		ab.setName(cdo.getName());
