@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
 import * as Actions from '../../store/actions';
+import Category from '../organisms/category'
 
 const mapStateToProps = state => ({ store: state });
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(Actions, dispatch) });
@@ -21,16 +22,17 @@ export default class Product extends React.Component{
     this.props.actions.getProductRequest();
   }
 
-
   render(){
     let list = [];
-    for(let value of this.props.store.products){
+    for(let value of this.props.store.shop.products){
       list.push(
         <h1 key={value.no}>{value.name}</h1>
       )
     }
     return(
     <div>
+
+      <Category/>
       {list}
       <button onClick={this.onTest}>test</button>
     </div>

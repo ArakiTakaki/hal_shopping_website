@@ -1,3 +1,6 @@
+//================
+//  InitialState
+//================
 const initialState = {
   num: 0,
   userName: "guest",
@@ -24,9 +27,13 @@ const initialState = {
   // カート情報の管理
   cart:{},
 
-  // 取得した商品一覧保存場所
-  products:[]
-
+  // shopの商品情報store
+  shop:{
+    // 取得した商品一覧保存場所
+    products:[],
+    // 選択したカテゴリ
+    categories:"",
+  }
 }
 
 export default initialState;
