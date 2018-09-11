@@ -17,8 +17,7 @@ export default class Product extends React.Component{
   }
   componentWillMoun(){}
 
-  onTest()
-  {
+  onTest(){
     this.props.actions.getProductRequest();
   }
 
@@ -31,7 +30,6 @@ export default class Product extends React.Component{
     }
     return(
     <div>
-
       <Category/>
       {list}
       <button onClick={this.onTest}>test</button>

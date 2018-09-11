@@ -22,3 +22,12 @@ export const getCategoryInProductRequest = (category) => ({ type: GET_CATEGORY_I
 
 export const GET_CATEGORY_IN_PRODUCT_SUCCESS = 'GET_CATEGORY_IN_PRODUCT_SUCCESS';
 export const getCategoryInProductSuccess = (data) => ({ type: GET_CATEGORY_IN_PRODUCT_SUCCESS, payload: data })
+
+
+//Dialog周り
+export const DIALOG_OPEN = "DIALOG_OPEN";
+export const dialogOpen = () => ({type:DIALOG_OPEN});
+
+export const DIALOG_CLOSE = "DIALOG_CLOSE";
+export const dialogClose = () => ({type:DIALOG_CLOSE});
+//Dialog周り

@@ -9,6 +9,8 @@ import Product from '../organisms/product';
 
 import Meta from '../../../env'
 import Bar from '../organisms/bar';
+import Dialog from '../organisms/BuyDialog';
+import Test from '../organisms/tests';
 
 const mapStateToProps = state => ({ store: state });
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, dispatch) });
@@ -27,6 +29,7 @@ export default class Root extends React.Component{
 
       <BrowserRouter>
       <div>
+        <Dialog/>
         <Bar/>
         <main>
           <nav>
@@ -46,6 +49,7 @@ export default class Root extends React.Component{
             <Route path='/Product' component={Product} />
           </Switch>
         </main>
+        <Test></Test>
       </div>
       </BrowserRouter>
     )

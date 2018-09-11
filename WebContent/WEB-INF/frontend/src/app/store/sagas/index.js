@@ -2,7 +2,7 @@
 //  Sagas
 //=========
 import * as Actions from '../actions';
-import { put, takeEvery, take } from 'redux-saga/effects';
+import { put, takeEvery, take, fork} from 'redux-saga/effects';
 import * as API from '../../util/api';
 
 function* getProduct() {
@@ -10,6 +10,7 @@ function* getProduct() {
     const request = yield API.getProduct();
     if ( request.status !== 200 )
       throw new Error("HTTP_REQUEST_ERROR:" +request.status);
+    console.log(request.data);
     yield put(Actions.setProducts(request.data));
   }catch(e){
     console.error("サーバからの応答が不正でした。");

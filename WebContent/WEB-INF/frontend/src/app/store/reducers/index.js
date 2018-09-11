@@ -15,6 +15,12 @@ const reducer = (state, action) => {
     case Actions.GET_CATEGORY_SUCCESS:
       state.shop.categories = payload;
       break;
+    case Actions.DIALOG_CLOSE:
+      state.buyDialog.open = false;
+      break;
+    case Actions.DIALOG_OPEN:
+      state.buyDialog.open = true;
+      break;
     default:
       return state;
   }

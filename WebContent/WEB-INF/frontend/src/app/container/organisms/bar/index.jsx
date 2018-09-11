@@ -7,11 +7,12 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
 
-import * as Actions from '../../store/actions';
-import Product from '../organisms/product';
-import Category from '../organisms/category'
+import * as Actions from '../../../store/actions';
+import Product from '../product';
+import Category from '../category';
 
-import Meta from '../../../env'
+import Meta from '../../../../env';
+import './bar.sass';
 
 const mapStateToProps = state => ({ store: state });
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(Actions, dispatch) });
@@ -25,14 +26,19 @@ export default class Bar extends React.Component{
     this.props.actions.increment();
   }
   render(){
-    const {userName,userID} = this.props.store;
+    const { userName } = this.props.store;
     return(
-      <AppBar>
-        <Toolbar>
-          <IconButton  color="inherit">
+      <AppBar className="nav-ber">
+        <Toolbar className="nav-ber__container">
+          <IconButton  color="inherit" className="bav-ber__icon">
             <MenuIcon/>
           </IconButton>
-          <Typography variant="title" color="inherit" align="right" noWrap>
+          <Typography
+            className="nav-ber__user-text"
+            variant="title"
+            color="inherit"
+            align="right"
+            noWrap>
             {userName}
           </Typography>
         </Toolbar>
