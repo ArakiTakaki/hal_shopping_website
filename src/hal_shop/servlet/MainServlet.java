@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MainServlet
  */
-@WebServlet("/index.html")
+@WebServlet("/index")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -18,8 +18,8 @@ public class MainServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("index.html").forward(request, response);;
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
+		request.setCharacterEncoding("utf8");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
