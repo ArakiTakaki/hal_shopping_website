@@ -45,7 +45,7 @@ export default class ProductForCategory extends React.Component{
           </Link>);
     }
     return(
-      <div>
+      <div className="organisms__products-wrap">
         <Link to={Meta.path()+"/Product"}>
           <Chip
             onClick={this.onAllProductShwo.bind(this)}

@@ -26,7 +26,7 @@ export const getCategoryInProductSuccess = (data) => ({ type: GET_CATEGORY_IN_PR
 
 //Dialog周り
 export const DIALOG_OPEN = "DIALOG_OPEN";
-export const dialogOpen = () => ({type:DIALOG_OPEN});
+export const dialogOpen = (product) => ({type:DIALOG_OPEN, payload:product});
 
 export const DIALOG_CLOSE = "DIALOG_CLOSE";
 export const dialogClose = () => ({type:DIALOG_CLOSE});

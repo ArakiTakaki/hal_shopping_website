@@ -12,6 +12,8 @@ import Bar from '../organisms/bar';
 import Dialog from '../organisms/BuyDialog';
 import Test from '../organisms/tests';
 
+import './root.sass'
+
 const mapStateToProps = state => ({ store: state });
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(actions, dispatch) });
 

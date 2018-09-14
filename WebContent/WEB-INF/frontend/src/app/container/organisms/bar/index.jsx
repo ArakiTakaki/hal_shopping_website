@@ -8,8 +8,6 @@ import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
 
 import * as Actions from '../../../store/actions';
-import Product from '../product';
-import Category from '../category';
 
 import Meta from '../../../../env';
 import './bar.sass';

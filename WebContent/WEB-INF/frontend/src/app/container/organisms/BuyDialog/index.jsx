@@ -1,68 +1,61 @@
 import React from 'react';
 
-import {Dialog, Slide, Button, DialogTitle, DialogContent, DialogActions, DialogContentText, Grid} from '@material-ui/core';
+import { Dialog, Slide, DialogActions, Button, Select } from '@material-ui/core';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 
 import * as Actions from '../../../store/actions';
-
-import Meta from '../../../../env';
-import './dialog.sass';
+import { ProductDetailComponent } from '../../../component/components/products/productDetail';
 
 const mapStateToProps = state => ({ store: state });
 const mapDispatchToProps = dispatch => ({ actions: bindActionCreators(Actions, dispatch) });
 
-function slideUp (props){
-  return  <Slide direction="up" {...props}/>
+function slideUp(props) {
+  return <Slide direction="up" {...props} />
 }
 
-@connect(mapStateToProps,mapDispatchToProps)
-export default class DialogComponent extends React.Component{
-  constructor(props){
+@connect(mapStateToProps, mapDispatchToProps)
+export default class DialogComponent extends React.Component {
+  constructor(props) {
     super(props);
+    this.state = {
+      count: 1
+    }
   }
 
-  onCloseEvent(){
+  onCloseEvent() {
     this.props.actions.dialogClose();
   }
 
-  render(){
-    const { buyDialog } = this.props.store;
-    return(
+  onChangeItem(event){
+    this.setState({count:event.target.value});
+  }
+
+  onBuyEvent() { }
+
+  render() {
+    const { buyDialog: { open, product } } = this.props.store;
+    let list = [];
+    for (let i = 1; i < 10; i++) {
+      list.push(<option key={i} value={i}>{i}</option>);
+    }
+    return (
       <Dialog
-        open={buyDialog.open}
+        open={open}
         TransitionComponent={slideUp}
         keepMounted
         onClose={this.onCloseEvent.bind(this)}>
-        <DialogTitle>
-            {buyDialog.name}
-        </DialogTitle>
-        <DialogContent>
-          <Grid container>
-            <Grid xs={4} item>IMAGE</Grid>
-            <Grid xs={8}>
-              <Grid xs={12} item>
-                詳細；{buyDialog.description}
-              </Grid>
-              <Grid xs={12} item>
-                価格:{buyDialog.price}
-              </Grid>
-              <Grid xs={12} item>
-                ジャンル:{buyDialog.type}
-              </Grid>
-            </Grid>
-
-          </Grid>
-          <DialogContentText>
-          </DialogContentText>
-        </DialogContent>
+        <ProductDetailComponent product={product} />
         <DialogActions>
+          <Select defaultValue={this.state.count} onChange={this.onChangeItem.bind(this)}>
+            {list}
+          </Select>
+          個
           <Button>
             購入
-          </Button>
+        </Button>
         </DialogActions>
-
       </Dialog>
     )
   }
