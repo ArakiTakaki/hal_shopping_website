@@ -31,3 +31,21 @@ export const dialogOpen = (product) => ({type:DIALOG_OPEN, payload:product});
 export const DIALOG_CLOSE = "DIALOG_CLOSE";
 export const dialogClose = () => ({type:DIALOG_CLOSE});
 //Dialog周り
+
+//Sidebar周り
+export const SIDEBAR_OPEN = "SIDEBAR_OPEN";
+export const sidebarOpen = () => ({type:SIDEBAR_OPEN});
+
+export const SIDEBAR_CLOSE = "SIDEBAR_CLOSE";
+export const sidebarClose = () => ({type:SIDEBAR_CLOSE});
+//Sidebar周り
+
+//userMenu
+export const USER_MENU_OPEN = "USER_MENU_OPEN";
+export const userMenuOpen = (element) => ({type:USER_MENU_OPEN,payload:element});
+
+export const USER_MENU_CLOSE = "USER_MENU_CLOSE";
+export const userMenuClose = () => ({type:USER_MENU_CLOSE});
+//userMenu
+
+

@@ -22,6 +22,19 @@ const reducer = (state, action) => {
     case Actions.DIALOG_CLOSE:
       state.buyDialog.open = false;
       break;
+    case Actions.SIDEBAR_OPEN:
+      state.sidebarState = true;
+      break;
+    case Actions.SIDEBAR_CLOSE:
+      state.sidebarState = false;
+      break;
+    case Actions.USER_MENU_OPEN:
+      state.user.open = true;
+      state.user.element = payload;
+      break;
+    case Actions.USER_MENU_CLOSE:
+      state.user.open = false;
+      break;
     default:
       return state;
   }

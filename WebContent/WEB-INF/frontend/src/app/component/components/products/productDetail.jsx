@@ -1,7 +1,15 @@
 import React from 'react';
-import { DialogTitle, DialogContent, Grid, DialogContentText, DialogActions, Button } from '@material-ui/core';
+import { DialogTitle, DialogContent, Grid } from '@material-ui/core';
 import { ImageSlider } from './ImageSlider';
+import "./productDetail.sass"
 
+const base = "component__product-detail";
+const style = {
+  root: `${base}__root`,
+  imageContent: `${base}__image-content`,
+  items: `${base}__items`,
+  content: `${base}__content`,
+}
 
 /**
  * プロダクトの一覧を表示するモジュール
@@ -14,30 +22,24 @@ export function ProductDetailComponent(props) {
       <DialogTitle>
         {name}
       </DialogTitle>
-      <DialogContent>
+      <DialogContent className={style.imageContent}>
         <ImageSlider images={images} />
       </DialogContent>
-      <DialogContent>
-        <DialogContentText>
-          <Grid container>
-            <Grid xs={12} container >
-
-              <Grid xs={12} className="component__product-detail__items" container>
-                <Grid xs={2} item> 詳細 </Grid>
-                <Grid xs={10} item>{description}</Grid>
-              </Grid>
-              <Grid xs={12} className="component__product-detail__items" container>
-                <Grid xs={2} item> 価格 </Grid>
-                <Grid xs={10} item>{price}</Grid>
-              </Grid>
-              <Grid xs={12} className="component__product-detail__items" container>
-                <Grid xs={2} item> ジャンル </Grid>
-                <Grid xs={10} item>{type}</Grid>
-              </Grid>
-            </Grid>
-
+      <DialogContent className={style.content}>
+        <Grid container >
+          <Grid className={style.items} container>
+            <Grid xs={2} item> 詳細 </Grid>
+            <Grid xs={10} item>{description}</Grid>
           </Grid>
-        </DialogContentText>
+          <Grid className={style.items} container>
+            <Grid xs={2} item> 価格 </Grid>
+            <Grid xs={10} item>{price}</Grid>
+          </Grid>
+          <Grid className={style.items} container>
+            <Grid xs={2} item> ジャンル </Grid>
+            <Grid xs={10} item>{type}</Grid>
+          </Grid>
+        </Grid>
       </DialogContent>
     </React.Fragment>
   );

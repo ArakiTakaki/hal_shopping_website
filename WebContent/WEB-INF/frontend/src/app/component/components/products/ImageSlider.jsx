@@ -1,6 +1,14 @@
 
 import React from 'react';
-import { Grid, GridList, GridListTile, GridListTileBar } from '@material-ui/core';
+import {  GridList, GridListTile } from '@material-ui/core';
+import './ImageSlider.sass'
+
+const base = "component__image-slider";
+
+const style = {
+  root: `${base}__root`,
+  content: `${base}__content`,
+}
 
 export function ImageSlider(props) {
   let list = [];
@@ -15,8 +23,8 @@ export function ImageSlider(props) {
 
   return (
     <React.Fragment>
-      <div className="component__image-slider__root">
-        <GridList className="component__image-slider__content" style="flex-wrap: nowrap" cols={2.5}>
+      <div className={style.root}>
+        <GridList className={style.content} cols={2.5}>
           {list}
         </GridList>
       </div>
