@@ -2,7 +2,7 @@
 const SERVER = 'server';
 const DEVELOP = 'develop'
 
-const LOCATION = DEVELOP;
+const LOCATION = SERVER;
 module.exports = {
   server(){
     switch(LOCATION){
